@@ -1,4 +1,9 @@
+# TODO: add neovim to installation using my forked repo
+#
 # This file should be executed just after cloning this repository
+
+# pre requisites
+PR="git make unzip gcc ripgrep"
 
 # Get the directory where the script is located
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
@@ -25,11 +30,19 @@ export XDG_CONFIG_HOME="$HOME"/.config
 mkdir -p "$XDG_CONFIG_HOME"/tmux
 
 
-# Symbolic links
-ln -sf "$SCRIPT_DIR/tmux.conf" "$XDG_CONFIG_HOME"/tmux/tmux.conf
 
 # installing dependencies
 # tmux: don't forget to install plugins by running <prefix + I>
 manage_repo "https://github.com/tmux-plugins/tpm" "$HOME/.tmux/plugins/tpm"
 tmux source "$XDG_CONFIG_HOME"/tmux/tmux.conf
+
+# neovim
+manage_repo "https://github.com/jfgsilva/kickstart.nvim.git" "${XDG_CONFIG_HOME}"/nvim
+
+
+# Symbolic links
+ln -sf "$SCRIPT_DIR/tmux.conf" "$XDG_CONFIG_HOME"/tmux/tmux.conf
+ln -sf "$SCRIPT_DIR/nvim-plugins/filetree.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/filetree.lua
+ln -sf "$SCRIPT_DIR/nvim-plugins/init.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/init.lua
+
 

@@ -2,25 +2,53 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
+-- WARNING: the whole return might need to be encased in other curly brackets
 return {
-  'tpope/vim-fugitive',
-  'pearofducks/ansible-vim',
-  {
-    'christoomey/vim-tmux-navigator',
-    lazy = false,
-    cmd = {
-      'TmuxNavigateLeft',
-      'TmuxNavigateDown',
-      'TmuxNavigateUp',
-      'TmuxNavigateRight',
-      'TmuxNavigatePrevious',
-    },
-    keys = {
-      { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
-      { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
-      { '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
-      { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
-      { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
-    },
-  },
+	{
+		"tris203/precognition.nvim",
+		event = "VeryLazy",
+		opts = {
+			startVisible = true,
+			showBlankVirtLine = true,
+			highlightColor = { link = "Comment" },
+			hints = {
+				Caret = { text = "^", prio = 2 },
+				Dollar = { text = "$", prio = 1 },
+				MatchingPair = { text = "%", prio = 5 },
+				Zero = { text = "0", prio = 1 },
+				w = { text = "w", prio = 10 },
+				b = { text = "b", prio = 9 },
+				e = { text = "e", prio = 8 },
+				W = { text = "W", prio = 7 },
+				B = { text = "B", prio = 6 },
+				E = { text = "E", prio = 5 },
+			},
+			gutterHints = {
+				G = { text = "G", prio = 10 },
+				gg = { text = "gg", prio = 9 },
+				PrevParagraph = { text = "{", prio = 8 },
+				NextParagraph = { text = "}", prio = 8 },
+			},
+		},
+	},
+	"tpope/vim-fugitive",
+	"pearofducks/ansible-vim",
+	{
+		"christoomey/vim-tmux-navigator",
+		lazy = false,
+		cmd = {
+			"TmuxNavigateLeft",
+			"TmuxNavigateDown",
+			"TmuxNavigateUp",
+			"TmuxNavigateRight",
+			"TmuxNavigatePrevious",
+		},
+		keys = {
+			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+			{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+			{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+		},
+	},
 }

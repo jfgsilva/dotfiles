@@ -32,6 +32,7 @@ return {
 		},
 	},
 	"tpope/vim-fugitive",
+	"tpope/vim-unimpaired",
 	"pearofducks/ansible-vim",
 	{
 		"christoomey/vim-tmux-navigator",

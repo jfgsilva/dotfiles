@@ -8,7 +8,7 @@ return {
 		"tris203/precognition.nvim",
 		event = "VeryLazy",
 		opts = {
-			startVisible = true,
+			startVisible = false,
 			showBlankVirtLine = true,
 			highlightColor = { link = "Comment" },
 			hints = {
@@ -33,6 +33,7 @@ return {
 	},
 	"tpope/vim-fugitive",
 	"tpope/vim-unimpaired",
+	"tpope/vim-surround",
 	"pearofducks/ansible-vim",
 	{
 		"christoomey/vim-tmux-navigator",

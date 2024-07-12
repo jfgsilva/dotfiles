@@ -1,25 +1,17 @@
+#!/bin/bash
+
 # This file should be executed just after cloning this repository
 
-# pre requisites
+# Pre-requisites
 PR="git make unzip gcc ripgrep neovim"
 
-echo "Installing requirements"
-
-# Detect package manager and install prerequisites
-if command -v dnf >/dev/null 2>&1; then
-    sudo dnf install  "$PR fd-find"
-elif command -v apt-get >/dev/null 2>&1; then
-    sudo apt update
-    sudo apt install  "$PR xclip"
-elif command -v brew >/dev/null 2>&1; then
-    brew install $PR
-else
-    echo "No supported package manager found. Please install the prerequisites manually: $PR"
-    exit 1
-fi
-
-# Get the directory where the script is located
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
+
+# Setup environment variables
+export XDG_CONFIG_HOME="$HOME"/.config
+
+echo "Would you like to perform a full run or just a config update? (full/config)"
+read -r USER_CHOICE
 
 # Function to clone or update a git repository
 manage_repo() {
@@ -35,37 +27,52 @@ manage_repo() {
   fi
 }
 
+if [ "$USER_CHOICE" = "full" ]; then
+  echo "Installing requirements"
 
-# setup environment variables
-export XDG_CONFIG_HOME="$HOME"/.config
+  # Detect package manager and install prerequisites
+  if command -v dnf >/dev/null 2>&1; then
+      sudo dnf install "$PR fd-find"
+  elif command -v apt-get >/dev/null 2>&1; then
+      sudo apt update
+      sudo apt install "$PR xclip"
+  elif command -v brew >/dev/null 2>&1; then
+      brew install $PR
+  else
+      echo "No supported package manager found. Please install the prerequisites manually: $PR"
+      exit 1
+  fi
 
-echo "Creating directories"
-# Create directories
-mkdir -p "$XDG_CONFIG_HOME"/tmux
-mkdir -p "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins
+  # Get the directory where the script is located
+  SCRIPT_DIR=$(dirname "$(realpath "$0")")
 
+  # Setup environment variables
+  export XDG_CONFIG_HOME="$HOME"/.config
 
+  echo "Creating directories"
+  # Create directories
+  mkdir -p "$XDG_CONFIG_HOME"/tmux
+  mkdir -p "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins
 
-# installing dependencies
-# tmux: don't forget to install plugins by running <prefix + I>
-echo "Setting up repositories"
+  echo "Setting up repositories"
+  manage_repo "https://github.com/tmux-plugins/tpm" "$HOME/.tmux/plugins/tpm"
+  tmux source "$XDG_CONFIG_HOME"/tmux/tmux.conf
 
-manage_repo "https://github.com/tmux-plugins/tpm" "$HOME/.tmux/plugins/tpm"
-tmux source "$XDG_CONFIG_HOME"/tmux/tmux.conf
+  # Neovim
+  manage_repo "https://github.com/jfgsilva/kickstart.nvim.git" "${XDG_CONFIG_HOME}"/nvim
+fi
 
-# neovim
-manage_repo "https://github.com/jfgsilva/kickstart.nvim.git" "${XDG_CONFIG_HOME}"/nvim
+if [ "$USER_CHOICE" = "full" ] || [ "$USER_CHOICE" = "config" ]; then
+  echo "Cleaning up nvim custom plugins"
+  rm "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/*
 
+  # Symbolic links
+  echo "Creating symlinks"
 
-# Symbolic links
-echo "Creating symlinks"
+  ln -sf "$SCRIPT_DIR/tmux.conf" "$XDG_CONFIG_HOME"/tmux/tmux.conf
+  ln -sf "$SCRIPT_DIR/nvim-plugins/oil.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/oil.lua
+  ln -sf "$SCRIPT_DIR/nvim-plugins/init.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/init.lua
+fi
 
-ln -sf "$SCRIPT_DIR/tmux.conf" "$XDG_CONFIG_HOME"/tmux/tmux.conf
-echo "Cleaning up nvim custom plugins"
-rm "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/*
-
-# ln -sf "$SCRIPT_DIR/nvim-plugins/filetree.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/filetree.lua
-ln -sf "$SCRIPT_DIR/nvim-plugins/mini-icons.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/oil.lua
-ln -sf "$SCRIPT_DIR/nvim-plugins/init.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/init.lua
-
+echo "Operation completed."
 

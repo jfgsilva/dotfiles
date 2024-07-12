@@ -71,6 +71,7 @@ if [ "$USER_CHOICE" = "full" ] || [ "$USER_CHOICE" = "config" ]; then
 
   ln -sf "$SCRIPT_DIR/tmux.conf" "$XDG_CONFIG_HOME"/tmux/tmux.conf
   ln -sf "$SCRIPT_DIR/nvim-plugins/oil.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/oil.lua
+  ln -sf "$SCRIPT_DIR/nvim-plugins/XDG_CONFIG_HOME/mini-icons.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/mini-icons.lua
   ln -sf "$SCRIPT_DIR/nvim-plugins/init.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/init.lua
 fi
 

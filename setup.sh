@@ -61,6 +61,9 @@ manage_repo "https://github.com/jfgsilva/kickstart.nvim.git" "${XDG_CONFIG_HOME}
 echo "Creating symlinks"
 
 ln -sf "$SCRIPT_DIR/tmux.conf" "$XDG_CONFIG_HOME"/tmux/tmux.conf
+echo "Cleaning up nvim custom plugins"
+rm "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/*
+
 # ln -sf "$SCRIPT_DIR/nvim-plugins/filetree.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/filetree.lua
 ln -sf "$SCRIPT_DIR/nvim-plugins/mini-icons.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/oil.lua
 ln -sf "$SCRIPT_DIR/nvim-plugins/init.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/init.lua

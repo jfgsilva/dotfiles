@@ -15,7 +15,7 @@ vim.keymap.set("v", "<leader>sc", run_sc_command, { desc = "Smart Cat LLM" })
 -- adding my own options JFS
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldlevelstart = 1
+vim.opt.foldlevelstart = 99
 vim.opt.foldcolumn = "0"
 vim.opt.foldenable = false
 vim.opt.tabstop = 4

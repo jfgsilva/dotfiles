@@ -82,7 +82,7 @@ return {
 					["<C-p>"] = "actions.preview",
 					["<C-c>"] = "actions.close",
 					["<C-l>"] = false,
-					-- ["<C-l>"] = "actions.refresh",
+					["<C-m>"] = "actions.refresh",
 					["-"] = "actions.parent",
 					["_"] = "actions.open_cwd",
 					["`"] = "actions.cd",

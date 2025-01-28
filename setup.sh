@@ -76,7 +76,6 @@ if [ "$USER_CHOICE" = "full" ] || [ "$USER_CHOICE" = "config" ]; then
   ln -sf "$SCRIPT_DIR/nvim-plugins/nvim-dap.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/
   ln -sf "$SCRIPT_DIR/nvim-plugins/yaml-lsp.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/
   ln -sf "$SCRIPT_DIR/nvim-plugins/lua-line.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/
-  ln -sf "$SCRIPT_DIR/nvim-plugins/codeium.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/
   ln -sf "$SCRIPT_DIR/nvim-plugins/jfs_configs.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/
   ln -sf "$SCRIPT_DIR/nvim-plugins/harpoon.lua" "$XDG_CONFIG_HOME"/nvim/lua/custom/plugins/
 fi

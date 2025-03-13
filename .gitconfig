@@ -12,6 +12,10 @@
 	defaultBranch = main
 [diff]
     tool = nvimdiff
+    algorithm = histogram
+    colorMoved = plain
+    mnemonicPrefix = true
+    renames = true
 [difftool]
     prompt = false
 [difftool "nvimdiff"]
@@ -23,3 +27,36 @@
 [mergetool "nvimdiff"]
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'"
 
+[alias]
+	staash = stash --all
+	bb = !better-branch.sh
+
+[column]
+        ui = auto
+[branch]
+        sort = -committerdate
+[tag]
+        sort = version:refname
+[fetch]
+        prune = true
+        pruneTags = true
+        all = true
+[help]
+        autocorrect = prompt
+[commit]
+        verbose = true
+[core]
+        excludesfile = ~/.gitignore
+[grep]
+        linenumber = true
+        heading = true
+        break = true
+        patternType = perl
+[rebase]
+        autoSquash = true
+        autoStash = true
+        updateRefs = true
+[maintenance]
+	repo = /Users/jsilva/dotfiles
+	repo = /Users/jsilva/Documents/BitBucket/ops-ansible
+	repo = /Users/jsilva/Documents/BitBucket/ops-config

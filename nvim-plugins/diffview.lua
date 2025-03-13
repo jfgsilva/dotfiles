@@ -32,9 +32,12 @@ return {
 				handle:close()
 
 				-- Extract branch name from the result
-				local branch_name = result:match("refs/remotes/origin/(.+)"):gsub("%s+", "")
-				if branch_name and branch_name ~= "" then
-					return branch_name
+				local branch_name = result:match("refs/remotes/origin/(.+)")
+				if branch_name then
+					branch_name = branch_name:gsub("%s+", "")
+					if branch_name ~= "" then
+						return branch_name
+					end
 				end
 			end
 

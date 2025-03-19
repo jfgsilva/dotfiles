@@ -1,6 +1,15 @@
 # dotfiles
 My dotfiles
 
+# tmux
+## install tmux plugin manager
+
+```bash
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# type this in terminal if tmux is already running
+tmux source ~/.tmux.conf
+```
+
 # gitconfig
 Have a look at the following youtube talk [so you think you know git](https://www.youtube.com/watch?v=aolI_Rz0ZqY&t=2224s)
 ## some basic configuration

@@ -25,3 +25,9 @@ fi
 unset rc
 alias vim=nvim
 export PATH=$PATH:$HOME/dotfiles/bash-tools
+
+# this allows us to call podman from within toolbox
+if [ -n "$TOOLBOX_PATH" ]; then
+  alias podman="flatpak-spawn --host podman"
+fi
+

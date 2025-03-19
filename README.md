@@ -1,14 +1,23 @@
 # dotfiles
 My dotfiles
 
+# stow
+##
+
 # tmux
 ## install tmux plugin manager
 
 ```bash
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 # type this in terminal if tmux is already running
-tmux source ~/.tmux.conf
+tmux source-file ~/.tmux.conf
+# maybe tmux source ~/.tmux.conf
+# now type leader + I to install plugins
 ```
+
+# neovim
+## installing kickstart
+git clone git@github.com:jfgsilva/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
 
 # gitconfig
 Have a look at the following youtube talk [so you think you know git](https://www.youtube.com/watch?v=aolI_Rz0ZqY&t=2224s)
@@ -29,7 +38,7 @@ NO_COLOR='\033[0m'
 width1=5
 width2=6
 width3=30
-width4=20
+width4=20 2
 width5=40
 
 # Function to count commits

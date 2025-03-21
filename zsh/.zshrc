@@ -137,16 +137,16 @@ export ES_HOME=$DOCLI/apps/elasticsearch-8.12.1
 alias doco='export DOCLI_PROJECT_ROOT=~/Documents/BitBucket/ops-config && export DOCLI_PROJECT_CLIENT="co" && source $DOCLI/bin/setenv ent'
 doco
 
-## aliases to open directly in vscode
-alias -s xml=code
-alias -s py=code
-alias -s json=code
-alias -s txt=code
-alias -s log=code
-alias -s tf=code
-alias -s yaml=code
-alias -s yml=code
-alias -s md=code
+## aliases to open directly in neovide
+alias -s xml=neovide
+alias -s py=neovide
+alias -s json=neovide
+alias -s txt=neovide
+alias -s log=neovide
+alias -s tf=neovide
+alias -s yaml=neovide
+alias -s yml=neovide
+alias -s md=neovide
 
 
 autoload -U +X bashcompinit && bashcompinit

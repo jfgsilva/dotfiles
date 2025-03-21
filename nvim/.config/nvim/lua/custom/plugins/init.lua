@@ -2,6 +2,14 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
+--
+if vim.g.neovide then
+	vim.o.guifont = "DroidSansM Nerd Font:h16"
+	-- set guifont=FiraCode\ Nerd\ Font:h16
+	-- set guifont:DroidSansM\ Nerd\ Font:h16
+	--
+	-- Put anything you want to happen only in Neovide here
+end
 -- WARNING: the whole return might need to be encased in other curly brackets
 return {
 	{

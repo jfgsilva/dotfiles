@@ -26,10 +26,18 @@ unset rc
 alias vim=nvim
 export PATH=$PATH:$HOME/dotfiles/bash-tools
 
+# to install neovide on fedora silverblue follow these instructions
+# flatpak install flathub dev.neovide.neovide
+# flatpak override dev.neovide.neovide --filesystem=$HOME/.config/nvim
+# mkdir -p ~/.var/app/dev.neovide.neovide/config/
+# ln -s ~/.config/nvim ~/.var/app/dev.neovide.neovide/config/nvim
+
+
 # this allows us to call podman from within toolbox
 if [ -n "$TOOLBOX_PATH" ]; then
   alias podman="flatpak-spawn --host podman"
   alias flatpak="flatpak-spawn --host flatpak"
+  alias neovide="flatpak run dev.neovide.neovide"
 fi
 
 # robbyrussel lookalike for bash

@@ -19,6 +19,15 @@ tmux source-file ~/.tmux.conf
 ## installing kickstart
 git clone git@github.com:jfgsilva/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
 
+# zsh
+## decrypting zsh_secrets.gpg
+```bash
+# encrypting
+gpg --symmetric --cipher-algo AES256 ~/.zsh_secrets
+# decrypting
+gpg --quiet --decrypt ~/.zsh_secrets.gpg ~/.zsh_secrets
+```
+
 # gitconfig
 Have a look at the following youtube talk [so you think you know git](https://www.youtube.com/watch?v=aolI_Rz0ZqY&t=2224s)
 ## some basic configuration

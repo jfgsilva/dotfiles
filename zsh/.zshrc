@@ -137,16 +137,16 @@ export ES_HOME=$DOCLI/apps/elasticsearch-8.12.1
 alias doco='export DOCLI_PROJECT_ROOT=~/Documents/BitBucket/ops-config && export DOCLI_PROJECT_CLIENT="co" && source $DOCLI/bin/setenv ent'
 doco
 
-## aliases to open directly in vscode
-alias -s xml=code
-alias -s py=code
-alias -s json=code
-alias -s txt=code
-alias -s log=code
-alias -s tf=code
-alias -s yaml=code
-alias -s yml=code
-alias -s md=code
+## aliases to open directly in neovide
+alias -s xml=neovide
+alias -s py=neovide
+alias -s json=neovide
+alias -s txt=neovide
+alias -s log=neovide
+alias -s tf=neovide
+alias -s yaml=neovide
+alias -s yml=neovide
+alias -s md=neovide
 
 
 autoload -U +X bashcompinit && bashcompinit
@@ -160,27 +160,10 @@ export PATH="$HOME/go/bin:$PATH"
 
 # nvim
 alias vim="nvim"
-# don't forget to run docker build . -t chatgpt:latest
-chatgpt() {
-  # Define the Docker image you want to use
-  local image="chatgpt:latest"
-  local CHATGPT_APIKEY=$(op item get "chatgpt-personal" --vault Individual  --fields label="api-key" --format json | jq -r .value)
-  # Use "$@" to forward all received parameters to the Docker container's entrypoint
-  docker run --rm -it -e OPENAI_KEY="$CHATGPT_APIKEY" "$image" "$@"
-}
 
 # export local bin for custom made scripts
 export PATH="$HOME/bin:$PATH"
 
-# execute tmux setup on terminal startup if console is interactive
-# if [[ $- == *i* ]]; then
-#  $HOME/bin/setup_tmux_secondbrain.sh
-# fi
-ssb () {
- $HOME/bin/setup_tmux_secondbrain.sh
-}
-
-alias mkubectl="minikube kubectl --"
 
 # adding fzf integration
 # Set up fzf key bindings and fuzzy completion
@@ -189,3 +172,46 @@ source <(fzf --zsh --tmux)
 # estabilish easy ssh connections using oil and fzf
 
 alias oil='~/bin/oil-ssh.sh'
+
+vimgolf() {
+    if [[ "$1" == "put" ]]; then
+        local challenge_ID=$2
+        docker run --rm -it -e "key=380a72755bc8c59d36e44b3790ff809b" ghcr.io/filbranden/vimgolf "$challenge_ID"
+    else
+        command vimgolf "$@"
+    fi
+}
+
+# FC FIX COMMAND EDITOR
+export FCEDIT=nvim
+
+# COMMENT CLEANER
+
+ccleaner() {
+  # Check if the required file parameter is provided
+  if [ -z "$1" ]; then
+    echo "Usage: ccleaner <file> [-c]"
+    return 1
+  fi
+
+  # Extract non-empty, non-comment lines
+  local OUTPUT
+  OUTPUT=$(grep -v "^\s*$" "$1" | grep -v "^\s*#")
+
+  # Check if the second argument is "-c" to copy to clipboard
+  if [[ "$2" == "-c" ]]; then
+    echo "$OUTPUT" | pbcopy
+  else
+    echo "$OUTPUT"
+  fi
+}
+
+
+
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+export OLLAMA_HOST=0.0.0.0
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+
+# Load secrets if they exist
+[ -f "$HOME/.zsh_secrets" ] && source "$HOME/.zsh_secrets"

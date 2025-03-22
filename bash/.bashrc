@@ -36,8 +36,8 @@ export PATH=$PATH:$HOME/dotfiles/bash-tools
 # this allows us to call podman from within toolbox
 if [ -n "$TOOLBOX_PATH" ]; then
   alias podman="flatpak-spawn --host podman"
-  alias flatpak="flatpak-spawn --host flatpak"
-  alias neovide="flatpak run dev.neovide.neovide"
+  # alias flatpak="FLATPAK_ENABLE_SDK_EXT=node22,golang flatpak-spawn --host flatpak"
+  # alias neovide="flatpak run dev.neovide.neovide"
 fi
 
 # robbyrussel lookalike for bash
@@ -118,4 +118,9 @@ function parse_git_dirty {
 	fi
 }
 
+if [ -n "$TOOLBOX_PATH" ]; then
+export PS1="\[\e[35m\]⬢  \[\e[m\]\[\e[36m\]\w\[\e[m\] \[\e[32m\]\`git_exist_fist\`\[\e[31m\]\`parse_git_branch\`\[\e[32m\]\`git_exist_last\`\[\e[33m\]\`parse_git_status\`\[\e[m\] "
+else
+	# alias neovide="flatpak run dev.neovide.neovide"
 export PS1="\[\e[32m\]➜  \[\e[m\]\[\e[36m\]\w\[\e[m\] \[\e[32m\]\`git_exist_fist\`\[\e[31m\]\`parse_git_branch\`\[\e[32m\]\`git_exist_last\`\[\e[33m\]\`parse_git_status\`\[\e[m\] "
+fi

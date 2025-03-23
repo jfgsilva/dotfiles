@@ -2,12 +2,12 @@
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
+	. /etc/bashrc
 fi
 
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+	PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 export PATH
 
@@ -16,14 +16,15 @@ export PATH
 
 # User specific aliases and functions
 if [ -d ~/.bashrc.d ]; then
-    for rc in ~/.bashrc.d/*; do
-        if [ -f "$rc" ]; then
-            . "$rc"
-        fi
-    done
+	for rc in ~/.bashrc.d/*; do
+		if [ -f "$rc" ]; then
+			. "$rc"
+		fi
+	done
 fi
 unset rc
 alias vim=nvim
+export FLATPAK_ENABLE_SDK_EXT="node22,golang"
 export PATH=$PATH:$HOME/dotfiles/bash-tools
 
 # to install neovide on fedora silverblue follow these instructions
@@ -32,19 +33,20 @@ export PATH=$PATH:$HOME/dotfiles/bash-tools
 # mkdir -p ~/.var/app/dev.neovide.neovide/config/
 # ln -s ~/.config/nvim ~/.var/app/dev.neovide.neovide/config/nvim
 
-
 # this allows us to call podman from within toolbox
 if [ -n "$TOOLBOX_PATH" ]; then
-  alias podman="flatpak-spawn --host podman"
-  # alias flatpak="FLATPAK_ENABLE_SDK_EXT=node22,golang flatpak-spawn --host flatpak"
-  # alias neovide="flatpak run dev.neovide.neovide"
+	export FLATPAK_ENABLE_SDK_EXT="node22,golang"
+	alias podman="flatpak-spawn --host podman"
+	alias neovide="flatpak-spawn --host flatpak run dev.neovide.neovide"
+else
+	export FLATPAK_ENABLE_SDK_EXT="node22,golang"
+	alias neovide="flatpak run dev.neovide.neovide"
 fi
 
 # robbyrussel lookalike for bash
 function git_exist_fist() {
-	BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-	if [ ! "${BRANCH}" == "" ]
-	then
+	BRANCH=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+	if [ ! "${BRANCH}" == "" ]; then
 		echo "git:("
 	else
 		echo ""
@@ -52,9 +54,8 @@ function git_exist_fist() {
 }
 
 function git_exist_last() {
-	BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-	if [ ! "${BRANCH}" == "" ]
-	then
+	BRANCH=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+	if [ ! "${BRANCH}" == "" ]; then
 		echo ")"
 	else
 		echo ""
@@ -63,9 +64,8 @@ function git_exist_last() {
 
 # get current branch in git repo
 function parse_git_branch() {
-	BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-	if [ ! "${BRANCH}" == "" ]
-	then
+	BRANCH=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+	if [ ! "${BRANCH}" == "" ]; then
 		echo "${BRANCH}"
 	else
 		echo ""
@@ -73,10 +73,9 @@ function parse_git_branch() {
 }
 
 function parse_git_status() {
-	STAT=`parse_git_dirty`
-	if [ ! "${STAT}" == "" ]
-	then
-		STAT=`parse_git_dirty`
+	STAT=$(parse_git_dirty)
+	if [ ! "${STAT}" == "" ]; then
+		STAT=$(parse_git_dirty)
 		echo " ✗"
 	else
 		echo ""
@@ -85,13 +84,31 @@ function parse_git_status() {
 
 # get current status of git repo
 function parse_git_dirty {
-	status=`git status 2>&1 | tee`
-	dirty=`echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?"`
-	untracked=`echo -n "${status}" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?"`
-	ahead=`echo -n "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$?"`
-	newfile=`echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?"`
-	renamed=`echo -n "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?"`
-	deleted=`echo -n "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?"`
+	status=$(git status 2>&1 | tee)
+	dirty=$(
+		echo -n "${status}" 2>/dev/null | grep "modified:" &>/dev/null
+		echo "$?"
+	)
+	untracked=$(
+		echo -n "${status}" 2>/dev/null | grep "Untracked files" &>/dev/null
+		echo "$?"
+	)
+	ahead=$(
+		echo -n "${status}" 2>/dev/null | grep "Your branch is ahead of" &>/dev/null
+		echo "$?"
+	)
+	newfile=$(
+		echo -n "${status}" 2>/dev/null | grep "new file:" &>/dev/null
+		echo "$?"
+	)
+	renamed=$(
+		echo -n "${status}" 2>/dev/null | grep "renamed:" &>/dev/null
+		echo "$?"
+	)
+	deleted=$(
+		echo -n "${status}" 2>/dev/null | grep "deleted:" &>/dev/null
+		echo "$?"
+	)
 	bits=''
 	if [ "${renamed}" == "0" ]; then
 		bits=">${bits}"
@@ -119,8 +136,8 @@ function parse_git_dirty {
 }
 
 if [ -n "$TOOLBOX_PATH" ]; then
-export PS1="\[\e[35m\]⬢  \[\e[m\]\[\e[36m\]\w\[\e[m\] \[\e[32m\]\`git_exist_fist\`\[\e[31m\]\`parse_git_branch\`\[\e[32m\]\`git_exist_last\`\[\e[33m\]\`parse_git_status\`\[\e[m\] "
+	export PS1="\[\e[35m\]⬢  \[\e[m\]\[\e[36m\]\w\[\e[m\] \[\e[32m\]\`git_exist_fist\`\[\e[31m\]\`parse_git_branch\`\[\e[32m\]\`git_exist_last\`\[\e[33m\]\`parse_git_status\`\[\e[m\] "
 else
 	# alias neovide="flatpak run dev.neovide.neovide"
-export PS1="\[\e[32m\]➜  \[\e[m\]\[\e[36m\]\w\[\e[m\] \[\e[32m\]\`git_exist_fist\`\[\e[31m\]\`parse_git_branch\`\[\e[32m\]\`git_exist_last\`\[\e[33m\]\`parse_git_status\`\[\e[m\] "
+	export PS1="\[\e[32m\]➜  \[\e[m\]\[\e[36m\]\w\[\e[m\] \[\e[32m\]\`git_exist_fist\`\[\e[31m\]\`parse_git_branch\`\[\e[32m\]\`git_exist_last\`\[\e[33m\]\`parse_git_status\`\[\e[m\] "
 fi

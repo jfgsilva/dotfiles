@@ -4,7 +4,7 @@
 -- See the kickstart.nvim README for more information
 --
 if vim.g.neovide then
-	vim.o.guifont = "DroidSansM Nerd Font:h16"
+	vim.o.guifont = "DroidSansM Nerd Font:h17"
 	-- set guifont=FiraCode\ Nerd\ Font:h16
 	-- set guifont:DroidSansM\ Nerd\ Font:h16
 	--

@@ -23,11 +23,13 @@ if [ -d ~/.bashrc.d ]; then
 	done
 fi
 unset rc
-alias vim=nvim
+alias n=nvim
 export FLATPAK_ENABLE_SDK_EXT="node22,golang"
 export PATH=$PATH:$HOME/dotfiles/bash-tools
 
 # to install neovide on fedora silverblue follow these instructions
+# flatpak install flathub org.freedesktop.Sdk.Extension.node22
+# flatpak install flathub org.freedesktop.Sdk.Extension.golang
 # flatpak install flathub dev.neovide.neovide
 # flatpak override dev.neovide.neovide --filesystem=$HOME/.config/nvim
 # mkdir -p ~/.var/app/dev.neovide.neovide/config/
@@ -37,6 +39,7 @@ export PATH=$PATH:$HOME/dotfiles/bash-tools
 if [ -n "$TOOLBOX_PATH" ]; then
 	export FLATPAK_ENABLE_SDK_EXT="node22,golang"
 	alias podman="flatpak-spawn --host podman"
+	alias flatpak="flatpak-spawn --host flatpak"
 	alias neovide="flatpak-spawn --host flatpak run dev.neovide.neovide"
 else
 	export FLATPAK_ENABLE_SDK_EXT="node22,golang"

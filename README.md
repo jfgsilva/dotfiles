@@ -1,11 +1,32 @@
-# dotfiles
+# Fedora silverblue qol tips
+## enable flathub
+```bash
+# enable flathub
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+# setup firefox flathub with 1password
+flatpak install flathub org.mozilla.firefox
+flatpak install https://downloads.1password.com/linux/flatpak/1Password.flatpakref
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+find ~/.ssh -type f -exec chmod 600 {} \;:W
+# TODO: meter docker pull a imagem que quero, instalar a toolbox e ir a partir dadoc
+podman pull gavsilva/toolbelt:f41-base
+toolbox create --image docker.io/toolbelt:f41-base base
+# installing op on toolbox
+sudo rpm --import https://downloads.1password.com/linux/keys/1password.asc
+sudo sh -c 'echo -e "[1password]\nname=1Password Stable Channel\nbaseurl=https://downloads.1password.com/linux/rpm/stable/\$basearch\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=\"https://downloads.1password.com/linux/keys/1password.asc\"" > /etc/yum.repos.d/1password.repo'
+sudo dnf check-update -y 1password-cli && sudo dnf install 1password-cli
+# add any relevant ssh keys
+ 
+
+
 My dotfiles
 
 # stow
 ##
 
 # tmux
-## install tmux plugin manager
+## install tmux plugin manager k
 
 ```bash
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
